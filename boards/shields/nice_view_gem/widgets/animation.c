@@ -42,13 +42,13 @@ static int animation_activity_listener(const zmk_event_t *eh) {
     }
 
     if (ev->state == ZMK_ACTIVITY_IDLE || ev->state == ZMK_ACTIVITY_SLEEP) {
-        // Stop animation in idle/sleep to save power
-        lv_animimg_stop(anim_obj);
-        LOG_DBG("Animation stopped (idle/sleep)");
+        // Hide animation in idle/sleep to save power
+        lv_obj_add_flag(anim_obj, LV_OBJ_FLAG_HIDDEN);
+        LOG_DBG("Animation hidden (idle/sleep)");
     } else if (ev->state == ZMK_ACTIVITY_ACTIVE) {
-        // Resume animation when active
-        lv_animimg_start(anim_obj);
-        LOG_DBG("Animation started (active)");
+        // Show animation when active
+        lv_obj_clear_flag(anim_obj, LV_OBJ_FLAG_HIDDEN);
+        LOG_DBG("Animation shown (active)");
     }
 
     return ZMK_EV_EVENT_BUBBLE;
