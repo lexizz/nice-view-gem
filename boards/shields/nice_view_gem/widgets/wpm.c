@@ -41,7 +41,7 @@ static void draw_needle(lv_obj_t *canvas, const struct status_state *state) {
 
     float radius = 25.45585;
     float angleDeg = 225 + ((float)value / max) * 90;
-    float angleRad = angleDeg * (3.14159 / 180.0f);
+    float angleRad = angleDeg * (M_PI / 180.0f);
 
     int needleStartX = centerX + (int)(offset * cos(angleRad));
     int needleStartY = centerY + (int)(offset * sin(angleRad));

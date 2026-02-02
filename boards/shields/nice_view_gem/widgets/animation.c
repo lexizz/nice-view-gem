@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <zephyr/kernel.h>
 #include "animation.h"
 
@@ -61,16 +60,19 @@ ZMK_SUBSCRIPTION(animation_activity, zmk_activity_state_changed);
 
 void draw_animation(lv_obj_t *canvas) {
 #if IS_ENABLED(CONFIG_NICE_VIEW_GEM_ANIMATION)
-    anim_obj = lv_animimg_create(canvas);
-    lv_obj_center(anim_obj);
+    // Prevent memory leak if called multiple times
+    if (anim_obj != NULL) {
+        return;
+    }
 
+    anim_obj = lv_animimg_create(canvas);
     lv_animimg_set_src(anim_obj, (const void **)anim_imgs, 16);
     lv_animimg_set_duration(anim_obj, CONFIG_NICE_VIEW_GEM_ANIMATION_MS);
     lv_animimg_set_repeat_count(anim_obj, LV_ANIM_REPEAT_INFINITE);
     lv_animimg_start(anim_obj);
-
     lv_obj_align(anim_obj, LV_ALIGN_TOP_LEFT, 36, 0);
 #else
+    #include <stdlib.h>
     lv_obj_t *art = lv_img_create(canvas);
 
     int length = sizeof(anim_imgs) / sizeof(anim_imgs[0]);
