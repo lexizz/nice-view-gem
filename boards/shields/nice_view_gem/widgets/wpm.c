@@ -3,6 +3,10 @@
 #include "wpm.h"
 #include "../assets/custom_fonts.h"
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 LV_IMG_DECLARE(gauge);
 LV_IMG_DECLARE(grid);
 
