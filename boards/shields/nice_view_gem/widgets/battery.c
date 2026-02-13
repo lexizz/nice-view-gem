@@ -20,10 +20,16 @@ static void draw_charging_level(lv_obj_t *canvas, const struct status_state *sta
     lv_draw_label_dsc_t label_right_dsc;
     init_label_dsc(&label_right_dsc, LVGL_FOREGROUND, &pixel_operator_mono, LV_TEXT_ALIGN_RIGHT);
 
-    char text[10] = {};
+    char text[12] = {};
 
+    // Display percentage on first line
     sprintf(text, "%i%%", state->battery);
     canvas_draw_text(canvas, 26, 19, 35, &label_right_dsc, text);
+
+    // Display voltage below percentage in format "4.12V"
+    sprintf(text, "%d.%02dV", state->battery_mv / 1000, (state->battery_mv % 1000) / 10);
+    canvas_draw_text(canvas, 20, 28, 43, &label_right_dsc, text);
+
     canvas_draw_img(canvas, 62, 21, &bolt, &img_dsc);
 }
 
