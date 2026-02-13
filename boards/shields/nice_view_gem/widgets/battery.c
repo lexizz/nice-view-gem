@@ -28,7 +28,7 @@ static void draw_charging_level(lv_obj_t *canvas, const struct status_state *sta
 
     // Display voltage below percentage in format "4.12V"
     sprintf(text, "%d.%02dV", state->battery_mv / 1000, (state->battery_mv % 1000) / 10);
-    canvas_draw_text(canvas, 20, 28, 43, &label_right_dsc, text);
+    canvas_draw_text(canvas, 20, 31, 43, &label_right_dsc, text);
 
     canvas_draw_img(canvas, 62, 21, &bolt, &img_dsc);
 }
